@@ -13,7 +13,6 @@ Source:		ftp://ftp.cogsci.ed.ac.uk/pub/LTXML/%{name}-%{version}.tar.bz2
 Patch:		%{name}.maninstall.patch.bz2
 License:	GPL
 Group:		File tools
-BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
 LT XML is an integrated set of XML tools and a developers' tool-kit,
