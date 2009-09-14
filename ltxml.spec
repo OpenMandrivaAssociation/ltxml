@@ -3,16 +3,20 @@
 %define release	%mkrel 6
 %define major	1
 %define libname	%mklibname %{name} %{major}
+%define develname	%mklibname %{name} -d
+
+%define automake_version %(automake --version | awk '/^automake/ {print $4}')
 
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
 Summary:	High-speed C-language validating XML parser
+License:	GPL
+Group:		File tools
 Url:		http://www.ltg.ed.ac.uk/software/xml
 Source:		ftp://ftp.cogsci.ed.ac.uk/pub/LTXML/%{name}-%{version}.tar.bz2
 Patch:		%{name}.maninstall.patch.bz2
-License:	GPL
-Group:		File tools
+BuildRequires:  zlib-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
@@ -24,26 +28,27 @@ of processing of well-formed XML documents, including searching and
 extracting, down-translation (e.g. report generation, formatting),
 tokenising and sorting. 
 
-%package -n %{libname}-devel
-Summary:        Development header files for %{name}
-Group:          Development/C
-Requires:       %{name} = %{version}-%{release}
-Provides:       lib%{name}-devel = %{version}-%{release}
-Provides:       %{name}-devel = %{version}-%{release}
+%package -n %{develname}
+Summary:    Development header files for %{name}
+Group:      Development/C
+Requires:   %{name} = %{version}-%{release}
+Provides:   %{name}-devel = %{version}-%{release}
+Obsoletes:  %mklibname %{name} -d 1
 
-%description -n %{libname}-devel
+%description -n %{develname}
 Libraries, include files and other resources you can use to develop
 %{name} applications.
 
 %prep
 %setup -q
 %patch
+cd XML
+cp -f %{_datadir}/automake-%{automake_version}/config.* .
 
 %build
-(cd XML \
-&& %configure \
-&& %make all\
-)
+cd XML
+%configure2_5x
+%make all
 
 %install
 rm -rf %{buildroot}
@@ -61,7 +66,7 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 %{_mandir}/man5/*
 
-%files -n %{libname}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 %{_libdir}/*.a
 %{_includedir}/%{name}
