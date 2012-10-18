@@ -1,6 +1,6 @@
 %define name	ltxml
-%define version	1.2.7
-%define release	%mkrel 7
+%define version	1.2.9
+%define release	%mkrel 1
 %define major	1
 %define libname	%mklibname %{name} %{major}
 %define develname	%mklibname %{name} -d
@@ -14,10 +14,9 @@ Summary:	High-speed C-language validating XML parser
 License:	GPL
 Group:		File tools
 Url:		http://www.ltg.ed.ac.uk/software/xml
-Source:		ftp://ftp.cogsci.ed.ac.uk/pub/LTXML/%{name}-%{version}.tar.bz2
-Patch:		%{name}.maninstall.patch.bz2
+Source0:	ftp://ftp.cogsci.ed.ac.uk/pub/LTXML/%{name}-%{version}.tar.gz
+Patch0:		%{name}.maninstall.patch.bz2
 BuildRequires:  zlib-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
 LT XML is an integrated set of XML tools and a developers' tool-kit,
@@ -41,33 +40,26 @@ Libraries, include files and other resources you can use to develop
 
 %prep
 %setup -q
-%patch
-cd XML
-cp -f %{_datadir}/automake-%{automake_version}/config.* .
 
 %build
 cd XML
+
+sed -e '/CFLAGS=/s:-g::' \
+	-e '/CFLAGS=/s:-O2::' \
+	-i configure || die
+
+autoreconf -fi
 %configure2_5x
 %make all
 
 %install
-rm -rf %{buildroot}
 cd XML && %makeinstall \
     datadir=%{buildroot}%{_datadir}/%{name} \
     includedir=%{buildroot}%{_includedir}/%{name}
 
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
-%{_bindir}/*
 %{_datadir}/%{name}
-%{_mandir}/man1/*
-%{_mandir}/man5/*
 
 %files -n %{develname}
-%defattr(-,root,root)
 %{_libdir}/*.a
 %{_includedir}/%{name}
-
