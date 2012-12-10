@@ -1,3 +1,5 @@
+%define debug_package %{nil}
+
 %define name	ltxml
 %define version	1.2.9
 %define release	%mkrel 1
@@ -15,7 +17,6 @@ License:	GPL
 Group:		File tools
 Url:		http://www.ltg.ed.ac.uk/software/xml
 Source0:	ftp://ftp.cogsci.ed.ac.uk/pub/LTXML/%{name}-%{version}.tar.gz
-Patch0:		%{name}.maninstall.patch.bz2
 BuildRequires:  zlib-devel
 
 %description
