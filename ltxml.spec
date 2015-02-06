@@ -2,7 +2,7 @@
 
 %define name	ltxml
 %define version	1.2.9
-%define release	%mkrel 1
+%define release	2
 %define major	1
 %define libname	%mklibname %{name} %{major}
 %define develname	%mklibname %{name} -d
