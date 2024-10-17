@@ -15,7 +15,7 @@ Release:	%{release}
 Summary:	High-speed C-language validating XML parser
 License:	GPL
 Group:		File tools
-Url:		http://www.ltg.ed.ac.uk/software/xml
+Url:		https://www.ltg.ed.ac.uk/software/xml
 Source0:	ftp://ftp.cogsci.ed.ac.uk/pub/LTXML/%{name}-%{version}.tar.gz
 BuildRequires:  zlib-devel
 
