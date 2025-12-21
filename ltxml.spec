@@ -17,6 +17,11 @@ License:	GPL
 Group:		File tools
 Url:		https://www.ltg.ed.ac.uk/software/xml
 Source0:	ftp://ftp.cogsci.ed.ac.uk/pub/LTXML/%{name}-%{version}.tar.gz
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:  zlib-devel
 
 %description
